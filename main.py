@@ -44,7 +44,7 @@ for idx, cl in enumerate(np.unique(y)):
 				c = cmap(idx), marker = markers[idx], label = cl)
 plt.show()
 
-
+#move to new PC
 
 
 
