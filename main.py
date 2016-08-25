@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np 
 from sklearn import datasets
+from Visualize import plot_decision_regions
 
 iris = datasets.load_iris()
 
@@ -44,7 +45,43 @@ for idx, cl in enumerate(np.unique(y)):
 				c = cmap(idx), marker = markers[idx], label = cl)
 plt.show()
 
-#move to new PC
+"""
+#try Linear SVC
+from sklearn.svm import SVC
+
+svm = SVC(kernel='linear', random_state=0, gamma = 0.1, C=1.0)
+svm.fit(X_train_std,y_train)
+
+#print svm.score(X_train_std,y_train)
+print 'Accuracy of linear SVM is {:.5f}'.format(svm.score(X_test_std,y_test))
+
+svm = SVC(kernel='rbf', random_state=0, gamma = 0.1, C=1.0)
+svm.fit(X_train_std,y_train)
+
+#print svm.score(X_train_std,y_train)
+print 'Accuracy of gaussian kernel SVM is {:.5f}'.format(svm.score(X_test_std,y_test))
+plot_decision_regions(X_test_std,y_test,svm)
+"""
+
+"""
+#KNN test
+from sklearn.neighbors import KNeighborsClassifier
+
+knn = KNeighborsClassifier(n_neighbors=5, p=2, metric='minkowski')
+knn.fit(X_train_std,y_train)
+
+print 'Accuracy of KNN with 5 neighbors is {:.5f}'.format(knn.score(X_test_std,y_test))
+plot_decision_regions(X_test_std,y_test,knn)
+"""
+
+#test xgboost
+import xgboost as xgb
+
+xgb_clf = xgb.XGBClassifier().fit(X_train_std,y_train)
+print 'Accuracy of xgboost is {:.5f}'.format(xgb_clf.score(X_test_std,y_test))
+plot_decision_regions(X_test_std,y_test,xgb_clf)
+
+
 
 
 
